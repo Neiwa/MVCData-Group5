@@ -22,7 +22,15 @@ namespace MVCData_Group5.Controllers
             page = --page < 0 ? 0 : page;
             // Ensure length is positive
             length = length > 0 ? length : 10;
-            var model = db.Movies.OrderBy(m => m.Id).Skip(length * page).Take(length);
+            var model = db.Movies.OrderBy(m => m.Id).Skip(length * page).Take(length).Select(m => new DisplayMovieViewModel
+            {
+                Id = m.Id,
+                Title = m.Title,
+                Director = m.Director,
+                Price = m.Price,
+                ReleaseYear = m.ReleaseYear,
+                ImageUrl = m.ImageUrl
+            });
 
             return View(model.ToList());
         }
