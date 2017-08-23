@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using MVCData_Group5.Models.Database;
 
 namespace MVCData_Group5.Models
 {
@@ -16,18 +17,9 @@ namespace MVCData_Group5.Models
             // Add custom user claims here
             return userIdentity;
         }
-    }
 
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
-    {
-        public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
-        {
-        }
+        public int CustomerId { get; set; }
 
-        public static ApplicationDbContext Create()
-        {
-            return new ApplicationDbContext();
-        }
+        public virtual Customer Customer { get; set; }
     }
 }
