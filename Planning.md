@@ -1,11 +1,13 @@
+Planning
+========
 
-
-- Front Page
-- Add Movie
-- List Movies
+###Pages needed:
+1. Front Page
+2. Add Movie
+3. List Movies
   + __Partial__: Movie Row
-- Display Order Cart
-- New Customer
-- Order Complete
-- List Orders
+4. Display Order Cart
+5. New Customer
+6. Order Complete
+7. List Orders
   + __Partial__: View Order
