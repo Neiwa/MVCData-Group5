@@ -1,0 +1,42 @@
+﻿@model MVCData_Group5.Models.Database.Movie
+
+<div class="col-md-4">
+    @if (!string.IsNullOrEmpty(Model.ImageUrl))
+            {
+    <img src="@Html.DisplayFor(model => model.ImageUrl)" height="50" width="50" />
+}
+    <dl class="dl-vertical">
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Director)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Director)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReleaseYear)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReleaseYear)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+    </dl>
+</div>
