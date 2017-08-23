@@ -42,6 +42,7 @@ namespace MVCData_Group5.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Add([Bind(Include = "Title,Director,ReleaseYear,Price,ImageUrl")]CreateMovieViewModel movie)
         {
             if(ModelState.IsValid)
@@ -67,6 +68,11 @@ namespace MVCData_Group5.Controllers
 
         protected override void Dispose(bool disposing)
         {
+            if(disposing)
+            {
+                db?.Dispose();
+            }
+
             base.Dispose(disposing);
         }
     }
