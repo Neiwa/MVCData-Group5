@@ -1,5 +1,6 @@
 ﻿using MVCData_Group5.Models;
 using MVCData_Group5.Models.Database;
+using MVCData_Group5.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,7 +34,7 @@ namespace MVCData_Group5.Controllers
                 db.Movies.Add(movie);
                 db.SaveChanges();
 
-                TempData["MovieAdded"] = movie.Title;
+                TempData[TempDataKeys.MovieAdded] = movie.Title;
 
                 return RedirectToAction("Add");
             }

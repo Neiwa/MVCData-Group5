@@ -1,4 +1,5 @@
-﻿@model MVCData_Group5.Models.Database.Movie
+﻿@using MVCData_Group5.Utilities
+@model MVCData_Group5.Models.Database.Movie
 
 @{
     ViewBag.Title = "Add";
@@ -6,9 +7,9 @@
 
 <h2>Add</h2>
 
-@if(TempData.ContainsKey("MovieAdded"))
+@if(TempData.ContainsKey(TempDataKeys.MovieAdded))
 {
-    <div class="alert alert-success" role="alert"><em>@TempData["MovieAdded"]</em> was added.</div>
+    <div class="alert alert-success" role="alert"><em>@TempData[TempDataKeys.MovieAdded]</em> was added.</div>
 }
 
 @using (Html.BeginForm()) 
