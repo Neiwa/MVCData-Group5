@@ -17,8 +17,10 @@ namespace MVCData_Group5.Controllers
         // GET: Movie
         public ActionResult Index(int length = 10, int page = 1)
         {
-            // Decrement page for easier calculations
-            page--;
+            // Decrement page for easier calculations, but not less than 0
+            page = --page < 0 ? 0 : page;
+            // Ensure length is positive
+            length = length > 0 ? length : 10;
             var model = db.Movies.OrderBy(m => m.Id).Skip(length * page).Take(length);
 
             return View(model.ToList());

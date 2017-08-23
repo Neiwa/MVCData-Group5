@@ -14,6 +14,18 @@ namespace MVCData_Group5
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "MovieIndexPage1",
+                url: "Movie/",
+                defaults: new { controller = "Movie", action = "Index", page = 1 }
+            );
+            routes.MapRoute(
+                name: "MovieIndex",
+                url: "Movie/Page/{page}",
+                defaults: new { controller = "Movie", action = "Index" },
+                constraints: new { page = @"\d+" }
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
