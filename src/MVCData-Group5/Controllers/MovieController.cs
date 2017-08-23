@@ -15,9 +15,13 @@ namespace MVCData_Group5.Controllers
 
 
         // GET: Movie
-        public ActionResult Index()
+        public ActionResult Index(int length = 10, int page = 1)
         {
-            return View();
+            // Decrement page for easier calculations
+            page--;
+            var model = db.Movies.OrderBy(m => m.Id).Skip(length * page).Take(length);
+
+            return View(model.ToList());
         }
 
         [HttpGet]
