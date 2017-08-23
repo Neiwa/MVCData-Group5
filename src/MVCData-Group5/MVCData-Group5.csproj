@@ -216,7 +216,7 @@
     <Compile Include="Models\ViewModels\MovieViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="Utilities\TempDataKeys.cs" />
+    <Compile Include="Utilities\DataKeys.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />

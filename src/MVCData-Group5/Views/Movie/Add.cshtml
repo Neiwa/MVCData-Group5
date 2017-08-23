@@ -7,9 +7,9 @@
 
 <h2>Add Movie</h2>
 
-@if(TempData.ContainsKey(TempDataKeys.MovieAdded))
+@if(TempData.ContainsKey(DataKeys.MovieAdded))
 {
-    <div class="alert alert-success" role="alert"><em>@TempData[TempDataKeys.MovieAdded]</em> was added.</div>
+    <div class="alert alert-success" role="alert"><em>@TempData[DataKeys.MovieAdded]</em> was added.</div>
 }
 
 @using (Html.BeginForm()) 

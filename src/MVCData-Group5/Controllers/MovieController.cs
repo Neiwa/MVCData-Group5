@@ -14,6 +14,16 @@ namespace MVCData_Group5.Controllers
     {
         protected ApplicationDbContext db = new ApplicationDbContext();
 
+        private ShoppingCart _cart;
+
+        protected ShoppingCart ShoppingCart
+        {
+            get
+            {
+                _cart = _cart ?? Session["ShoppingCart"] as ShoppingCart;
+                return _cart;
+            }
+        }
 
         // GET: Movie
         public ActionResult Index(int length = 10, int page = 1)
@@ -43,7 +53,7 @@ namespace MVCData_Group5.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Add([Bind(Include = "Title,Director,ReleaseYear,Price,ImageUrl")]CreateMovieViewModel movie)
+        public ActionResult Add(CreateMovieViewModel movie)
         {
             if(ModelState.IsValid)
             {
@@ -58,7 +68,7 @@ namespace MVCData_Group5.Controllers
                 db.Movies.Add(m);
                 db.SaveChanges();
 
-                TempData[TempDataKeys.MovieAdded] = movie.Title;
+                TempData[DataKeys.MovieAdded] = movie.Title;
 
                 return RedirectToAction("Add");
             }
