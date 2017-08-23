@@ -45,10 +45,12 @@ namespace MVCData_Group5.Models.Database
         public string DeliveryCity { get; set; }
 
         [Required]
+        [MaxLength(250)]
         [DataType(DataType.EmailAddress)]
         public string EmailAddress { get; set; }
 
         [Required]
+        [MaxLength(30)]
         [DataType(DataType.PhoneNumber)]
         public string PhoneNo { get; set; }
 
