@@ -1,5 +1,6 @@
 ﻿using MVCData_Group5.Models;
 using MVCData_Group5.Models.Database;
+using MVCData_Group5.Models.ViewModels;
 using MVCData_Group5.Utilities;
 using System;
 using System.Collections.Generic;
@@ -33,11 +34,19 @@ namespace MVCData_Group5.Controllers
         }
 
         [HttpPost]
-        public ActionResult Add([Bind(Include = "Title,Director,ReleaseYear,Price,ImageUrl")]Movie movie)
+        public ActionResult Add([Bind(Include = "Title,Director,ReleaseYear,Price,ImageUrl")]CreateMovieViewModel movie)
         {
             if(ModelState.IsValid)
             {
-                db.Movies.Add(movie);
+                Movie m = new Movie
+                {
+                    Title = movie.Title,
+                    Director = movie.Director,
+                    ReleaseYear = movie.ReleaseYear,
+                    Price = movie.Price,
+                    ImageUrl = movie.ImageUrl
+                };
+                db.Movies.Add(m);
                 db.SaveChanges();
 
                 TempData[TempDataKeys.MovieAdded] = movie.Title;
