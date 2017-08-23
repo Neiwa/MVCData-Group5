@@ -39,4 +39,10 @@
         </dd>
 
     </dl>
+
+    @using (Html.BeginForm(new { controller = "Movie", action = "AddToCart" }))
+    {
+        @Html.Hidden("movieId", Model.Id)
+        <input type="submit" name="addToCart" value="Add to Cart" />
+    }
 </div>

@@ -20,7 +20,12 @@ namespace MVCData_Group5.Controllers
         {
             get
             {
-                _cart = _cart ?? Session["ShoppingCart"] as ShoppingCart;
+                _cart = _cart ?? Session[DataKeys.ShoppingCart] as ShoppingCart;
+                if(_cart == null)
+                {
+                    _cart = new ShoppingCart();
+                    Session[DataKeys.ShoppingCart] = _cart;
+                }
                 return _cart;
             }
         }
@@ -74,6 +79,19 @@ namespace MVCData_Group5.Controllers
             }
 
             return View(movie);
+        }
+        
+        [HttpPost]
+        public ActionResult AddToCart(int movieId)
+        {
+            if (db.Movies.Find(movieId) == null)
+            {
+                // Fail silently
+                return RedirectToAction("Index");
+            }
+
+            ShoppingCart.Add(movieId);
+            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

@@ -12,7 +12,7 @@ namespace MVCData_Group5.Models
         {
             int value;
             TryGetValue(id, out value);
-            this[id] = value++;
+            this[id] = ++value;
         }
 
         public new void Remove(int id)
