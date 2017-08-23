@@ -30,4 +30,30 @@ namespace MVCData_Group5.Models.ViewModels
         [DataType(DataType.Currency)]
         public double Price { get; set; }
     }
+    public class DisplayMovieViewModel
+    {
+        public int Id { get; set; }
+
+        [Required]
+        [MaxLength(250)]
+        public string Title { get; set; }
+
+        [Required]
+        [MaxLength(250)]
+        public string Director { get; set; }
+
+        [Required]
+        [Range(1900, 9999)]
+        [Display(Name = "Release Year")]
+        public int ReleaseYear { get; set; }
+
+        [DataType(DataType.ImageUrl)]
+        [Url]
+        [Display(Name = "Image")]
+        public string ImageUrl { get; set; }
+
+        [Required]
+        [DataType(DataType.Currency)]
+        public double Price { get; set; }
+    }
 }
