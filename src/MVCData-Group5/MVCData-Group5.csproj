@@ -191,12 +191,17 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MovieController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201708230748309_Initial.cs" />
     <Compile Include="Migrations\201708230748309_Initial.Designer.cs">
       <DependentUpon>201708230748309_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708230908190_ShortenPhoneNo.cs" />
+    <Compile Include="Migrations\201708230908190_ShortenPhoneNo.Designer.cs">
+      <DependentUpon>201708230908190_ShortenPhoneNo.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -267,6 +272,7 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Movie\Add.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -289,6 +295,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201708230748309_Initial.resx">
       <DependentUpon>201708230748309_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708230908190_ShortenPhoneNo.resx">
+      <DependentUpon>201708230908190_ShortenPhoneNo.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
