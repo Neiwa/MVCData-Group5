@@ -2,9 +2,9 @@
 
 <div class="col-md-4">
     @if (!string.IsNullOrEmpty(Model.ImageUrl))
-            {
-    <img src="@Html.DisplayFor(model => model.ImageUrl)" height="50" width="50" />
-}
+    {
+        <img src="@Model.ImageUrl" height="50" width="50" />
+    }
     <dl class="dl-vertical">
         <dt>
             @Html.DisplayNameFor(model => model.Title)
