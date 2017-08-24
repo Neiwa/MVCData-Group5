@@ -1,0 +1,49 @@
+﻿@model MVCData_Group5.Models.ViewModels.CustomerOrderViewModel
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.OrderDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OrderDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalCost)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalCost)
+        </dd>
+
+    </dl>
+    <table>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Movies.First().Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Movies.First().Amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Movies.First().Price)
+            </th>
+        </tr>
+        @foreach (var item in Model.Movies)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Price)
+                </td>
+            </tr>
+        }
+    </table>
+</div>
