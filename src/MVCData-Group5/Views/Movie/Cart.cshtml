@@ -46,6 +46,11 @@
 
 </table>
 
+@using (Html.BeginForm("ReduceAllByOne", "Movie"))
+{
+    <input type="submit" name="reduceAll" value="Remove one of all movies" />
+}
+
 <pre class="hidden">
 @ViewBag.Query
 </pre>

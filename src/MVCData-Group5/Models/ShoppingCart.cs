@@ -22,6 +22,16 @@ namespace MVCData_Group5.Models
             this[id] = --value < 0 ? 0 : value;
         }
 
+        public void RemoveOneOfAll()
+        {
+            var keys = Keys.ToArray();
+            foreach (var key in keys)
+            {
+                int count = this[key];
+                this[key] = --count < 0 ? 0 : count;
+            }
+        }
+
         public int Total
         {
             get

@@ -110,6 +110,13 @@ namespace MVCData_Group5.Controllers
             return View(model);
         }
 
+        public ActionResult ReduceAllByOne()
+        {
+            ShoppingCart.RemoveOneOfAll();
+
+            return RedirectToAction("Cart");
+        }
+
         protected override void Dispose(bool disposing)
         {
             if(disposing)
