@@ -78,7 +78,7 @@ namespace MVCData_Group5.Controllers
 
         public ActionResult Index()
         {
-            var movieIds = ShoppingCart.Keys.Where(k => ShoppingCart[k] > 0).ToArray();
+            var movieIds = ShoppingCart.Keys.ToArray();
 
             IQueryable<Movie> query = db.Movies
                 .Where(m => movieIds.Contains(m.Id));
@@ -87,17 +87,29 @@ namespace MVCData_Group5.Controllers
             List<Movie> movies = query.ToList();
             var model = movies.Select(m => new ShoppingCartMovieViewModel
             {
+                Id = m.Id,
                 Title = m.Title,
                 Price = m.Price,
-                AmountInCart = ShoppingCart[m.Id]
+                Amount = ShoppingCart[m.Id]
             });
 
-            ShoppingCartTotal = model.Sum(vm => vm.Price * vm.AmountInCart);
+            ShoppingCartTotal = model.Sum(vm => vm.Price * vm.Amount);
 
             ViewBag.MovieCount = ShoppingCart.AmountItems;
             ViewBag.OrderTotal = UpdateShoppingCartTotal(movies);
 
             return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult ModifyAmount(int id, int amount)
+        {
+            if (ShoppingCart.Keys.Contains(id) && amount >= 0)
+            {
+                ShoppingCart[id] = amount;
+            }
+
+            return RedirectToAction("Index");
         }
 
         [HttpPost]

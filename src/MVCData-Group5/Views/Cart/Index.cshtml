@@ -16,8 +16,9 @@
                 @Html.DisplayNameFor(model => model.Price)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AmountInCart)
+                @Html.DisplayNameFor(model => model.Amount)
             </th>
+            <th></th>
         </tr>
     </thead>
     <tfoot>
@@ -25,6 +26,7 @@
             <td><strong>Total</strong></td>
             <td>@ViewBag.OrderTotal.ToString("C")</td>
             <td>@ViewBag.MovieCount</td>
+            <td></td>
         </tr>
     </tfoot>
     <tbody>
@@ -38,7 +40,24 @@
                     @Html.DisplayFor(modelItem => item.Price)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.AmountInCart)
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    @if (item.Amount > 0)
+                    {
+                        using (Html.BeginForm("ModifyAmount", "Cart"))
+                        {
+                            @Html.Hidden("id", item.Id)
+                            @Html.Hidden("amount", item.Amount - 1)
+                            <input type="submit" value="-" />
+                        }
+                    }
+                    @using (Html.BeginForm("ModifyAmount", "Cart"))
+                    {
+                        @Html.Hidden("id", item.Id)
+                        @Html.Hidden("amount", item.Amount + 1)
+                        <input type="submit" value="+" />
+                    }
                 </td>
             </tr>
         }
@@ -51,7 +70,7 @@
     <input type="submit" name="reduceAll" value="Remove one of all movies" />
 }
 
-@Html.ActionLink("Check out", "CheckOut", null, new { @class = "btn btn-default"})
+@Html.ActionLink("Check out", "CheckOut", null, new { @class = "btn btn-default" })
 
 <pre class="hidden">
 @ViewBag.Query

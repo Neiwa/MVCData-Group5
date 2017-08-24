@@ -68,7 +68,7 @@ namespace MVCData_Group5.Models.ViewModels
         public double Price { get; set; }
 
         [Display(Name = "Amount")]
-        public int AmountInCart { get; set; }
-        public int Id { get; internal set; }
+        public int Amount { get; set; }
+        public int Id { get; set; }
     }
 }
