@@ -284,7 +284,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Movie\Add.cshtml" />
     <Content Include="Views\Movie\Index.cshtml" />
-    <Content Include="Views\Shared\_movieRowPartial.cshtml" />
+    <Content Include="Views\Movie\_movieRowPartial.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Cart\CheckOut.cshtml" />
     <Content Include="Views\Cart\CheckOutComplete.cshtml" />

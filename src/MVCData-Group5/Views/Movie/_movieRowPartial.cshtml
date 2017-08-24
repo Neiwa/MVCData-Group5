@@ -40,7 +40,7 @@
 
     </dl>
 
-    @using (Html.BeginForm(new { controller = "Cart", action = "AddToCart" }))
+    @using (Html.BeginForm("AddToCart", "Cart", new { ReturnUrl = ViewBag.ReturnUrl }))
     {
         @Html.Hidden("movieId", Model.Id)
         <input type="submit" name="addToCart" value="Add to Cart" />

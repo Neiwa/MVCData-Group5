@@ -13,7 +13,7 @@
 <div class="row">
     @foreach (var movie in Model)
 {
-    Html.RenderPartial("_movieRowPartial", movie);
+    Html.RenderAction("MovieEntry", movie);
 }
 </div>
 

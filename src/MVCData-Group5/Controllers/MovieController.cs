@@ -34,6 +34,14 @@ namespace MVCData_Group5.Controllers
             return View(model.ToList());
         }
 
+        [ChildActionOnly]
+        public ActionResult MovieEntry(DisplayMovieViewModel model)
+        {
+            ViewBag.ReturnUrl = Request.Url.PathAndQuery;
+
+            return PartialView("_movieRowPartial", model);
+        }
+
         [HttpGet]
         public ActionResult Add()
         {

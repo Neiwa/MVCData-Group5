@@ -47,18 +47,22 @@ namespace MVCData_Group5.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddToCart(int movieId)
+        public ActionResult AddToCart(int movieId, string returnUrl)
         {
             Movie movie = db.Movies.Find(movieId);
-            if (movie == null)
+            if (movie != null)
             {
-                // Fail silently
+                ShoppingCart.Add(movieId);
+                ShoppingCartTotal += movie.Price;
+            }
+            if (Url.IsLocalUrl(returnUrl))
+            {
+                return Redirect(returnUrl);
+            }
+            else
+            {
                 return RedirectToAction("Index", "Movie");
             }
-
-            ShoppingCart.Add(movieId);
-            ShoppingCartTotal += movie.Price;
-            return RedirectToAction("Index", "Movie");
         }
 
         private double UpdateShoppingCartTotal(List<Movie> movies = null)
