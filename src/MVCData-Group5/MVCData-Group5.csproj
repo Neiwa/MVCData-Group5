@@ -189,6 +189,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Migrations\201708240708024_Update Navigation Prop in Order.cs" />
+    <Compile Include="Migrations\201708240708024_Update Navigation Prop in Order.Designer.cs">
+      <DependentUpon>201708240708024_Update Navigation Prop in Order.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MovieController.cs" />
@@ -304,6 +308,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708230908190_ShortenPhoneNo.resx">
       <DependentUpon>201708230908190_ShortenPhoneNo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708240708024_Update Navigation Prop in Order.resx">
+      <DependentUpon>201708240708024_Update Navigation Prop in Order.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

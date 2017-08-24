@@ -16,7 +16,7 @@ namespace MVCData_Group5.Models.Database
         [Required]
         public int CustomerId { get; set; }
 
-        public virtual int Customer { get; set; }
+        public virtual Customer Customer { get; set; }
         public virtual ICollection<OrderRow> OrderRows { get; set; }
     }
 }
