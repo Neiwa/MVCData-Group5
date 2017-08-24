@@ -10,10 +10,8 @@ using System.Web.Mvc;
 
 namespace MVCData_Group5.Controllers
 {
-    public class CartController : Controller
+    public class CartController : MovieDbController
     {
-        protected ApplicationDbContext db = new ApplicationDbContext();
-
         protected ShoppingCart ShoppingCart
         {
             get

@@ -190,6 +190,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\MovieDbController.cs" />
     <Compile Include="Migrations\201708240708024_Update Navigation Prop in Order.cs" />
     <Compile Include="Migrations\201708240708024_Update Navigation Prop in Order.Designer.cs">
       <DependentUpon>201708240708024_Update Navigation Prop in Order.cs</DependentUpon>

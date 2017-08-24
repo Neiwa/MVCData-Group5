@@ -10,10 +10,8 @@ using System.Web.Mvc;
 
 namespace MVCData_Group5.Controllers
 {
-    public class MovieController : Controller
-    {
-        protected ApplicationDbContext db = new ApplicationDbContext();
-        
+    public class MovieController : MovieDbController
+    {        
         // GET: Movie
         public ActionResult Index(int length = 10, int page = 1)
         {
@@ -71,17 +69,6 @@ namespace MVCData_Group5.Controllers
             }
 
             return View(movie);
-        }
-
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db?.Dispose();
-            }
-
-            base.Dispose(disposing);
         }
     }
 }
