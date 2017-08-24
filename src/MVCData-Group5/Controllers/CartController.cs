@@ -120,8 +120,8 @@ namespace MVCData_Group5.Controllers
         {
             if (ModelState.IsValid)
             {
-                Customer customer = db.Customers.Single(c => c.EmailAddress == model.EmailAddress);
-                if (CheckOut(customer))
+                Customer customer = db.Customers.FirstOrDefault(c => c.EmailAddress == model.EmailAddress);
+                if (customer != null && CheckOut(customer))
                 {
                     return RedirectToAction("CheckOutComplete");
                 }
@@ -162,6 +162,8 @@ namespace MVCData_Group5.Controllers
 
             db.Orders.Add(order);
             db.SaveChanges();
+
+            ShoppingCart.Clear();
 
             return true;
         }
