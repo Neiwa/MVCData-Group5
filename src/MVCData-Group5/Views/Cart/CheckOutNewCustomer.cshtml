@@ -1,4 +1,4 @@
-﻿@model MVCData_Group5.Models.ViewModels.NewUserViewModel
+﻿@model MVCData_Group5.Models.ViewModels.CheckOutNewUserViewModel
 
 @{
     ViewBag.Title = "CheckOutNewCustomer";
@@ -8,18 +8,18 @@
 
 <dl class="dl-horizontal">
     <dt>
-        Amount Movies
+        @Html.DisplayNameFor(model => model.MovieCount)
     </dt>
 
     <dd>
-        @ViewBag.MovieCount
+        @Html.DisplayFor(model => model.MovieCount)
     </dd>
     <dt>
-        Order Total
+        @Html.DisplayNameFor(model => model.OrderTotal)
     </dt>
 
     <dd>
-        @ViewBag.OrderTotal.ToString("C")
+        @Html.DisplayFor(model => model.OrderTotal)
     </dd>
 
 </dl>
@@ -132,5 +132,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to Cart", "Cart")
+    @Html.ActionLink("Back to Cart", "Index")
 </div>
