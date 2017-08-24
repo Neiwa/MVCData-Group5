@@ -24,7 +24,7 @@
         <tr>
             <td><strong>Total</strong></td>
             <td>@ViewBag.OrderTotal.ToString("C")</td>
-            <td>@ViewBag.Total</td>
+            <td>@ViewBag.MovieCount</td>
         </tr>
     </tfoot>
     <tbody>
@@ -50,6 +50,8 @@
 {
     <input type="submit" name="reduceAll" value="Remove one of all movies" />
 }
+
+@Html.ActionLink("Check out", "CheckOut", null, new { @class = "btn btn-default"})
 
 <pre class="hidden">
 @ViewBag.Query

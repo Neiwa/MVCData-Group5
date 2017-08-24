@@ -193,6 +193,8 @@
     <Compile Include="Migrations\201708240708024_Update Navigation Prop in Order.Designer.cs">
       <DependentUpon>201708240708024_Update Navigation Prop in Order.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\ViewModels\CheckOutViewModel.cs" />
+    <Compile Include="Models\ViewModels\UserViewModels.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MovieController.cs" />
@@ -283,6 +285,9 @@
     <Content Include="Views\Movie\Index.cshtml" />
     <Content Include="Views\Shared\_movieRowPartial.cshtml" />
     <Content Include="Views\Movie\Cart.cshtml" />
+    <Content Include="Views\Movie\CheckOut.cshtml" />
+    <Content Include="Views\Movie\CheckOutComplete.cshtml" />
+    <Content Include="Views\Movie\CheckOutNewCustomer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

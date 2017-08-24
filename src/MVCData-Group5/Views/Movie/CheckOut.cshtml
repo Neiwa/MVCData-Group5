@@ -1,0 +1,39 @@
+﻿@model MVCData_Group5.Models.ViewModels.CheckOutViewModel
+
+@{
+    ViewBag.Title = "CheckOut";
+}
+
+<h2>CheckOut</h2>
+
+<div>
+
+    <h4>OrderUserViewModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MovieCount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MovieCount)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OrderTotal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OrderTotal)
+        </dd>
+
+    </dl>
+    @using (Html.BeginForm())
+    {
+        @Html.EditorFor(model => model.EmailAddress)
+        <input type="submit" name="checkoutexisting" value="Check out" />
+    }
+    @Html.ActionLink("Check out as new customer", "CheckOutNewCustomer", null, new { @class="btn btn-default"})
+</div>
+<p>
+    @Html.ActionLink("Back to Cart", "Cart")
+</p>

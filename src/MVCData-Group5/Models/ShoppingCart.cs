@@ -32,7 +32,7 @@ namespace MVCData_Group5.Models
             }
         }
 
-        public int Total
+        public int AmountItems
         {
             get
             {
