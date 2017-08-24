@@ -43,20 +43,17 @@
                     @Html.DisplayFor(modelItem => item.Amount)
                 </td>
                 <td>
-                    @if (item.Amount > 0)
+                    @using (Html.BeginForm("ModifyAmount", "Cart", FormMethod.Post, new { @class = "btn-group" }))
                     {
-                        using (Html.BeginForm("ModifyAmount", "Cart"))
-                        {
-                            @Html.Hidden("id", item.Id)
-                            @Html.Hidden("amount", item.Amount - 1)
-                            <input type="submit" value="-" />
-                        }
+                        <button type="submit" class="btn btn-danger"><span class="glyphicon glyphicon-minus"></span></button>
+                        @Html.Hidden("id", item.Id)
+                        @Html.Hidden("amount", item.Amount - 1)
                     }
-                    @using (Html.BeginForm("ModifyAmount", "Cart"))
+                    @using (Html.BeginForm("ModifyAmount", "Cart", FormMethod.Post, new { @class = "btn-group inline" }))
                     {
                         @Html.Hidden("id", item.Id)
                         @Html.Hidden("amount", item.Amount + 1)
-                        <input type="submit" value="+" />
+                        <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button>
                     }
                 </td>
             </tr>
