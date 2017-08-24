@@ -78,7 +78,7 @@ namespace MVCData_Group5.Controllers
 
         public ActionResult Index()
         {
-            var movieIds = ShoppingCart.Keys.ToArray();
+            var movieIds = ShoppingCart.Keys.Where(k => ShoppingCart[k] > 0).ToArray();
 
             IQueryable<Movie> query = db.Movies
                 .Where(m => movieIds.Contains(m.Id));
