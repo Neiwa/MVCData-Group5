@@ -14,13 +14,11 @@ namespace MVCData_Group5.Controllers
     {
         protected ApplicationDbContext db = new ApplicationDbContext();
 
-        private ShoppingCart _cart;
-
         protected ShoppingCart ShoppingCart
         {
             get
             {
-                _cart = _cart ?? Session[DataKeys.ShoppingCart] as ShoppingCart;
+                ShoppingCart _cart = Session[DataKeys.ShoppingCart] as ShoppingCart;
                 if(_cart == null)
                 {
                     _cart = new ShoppingCart();
@@ -92,6 +90,24 @@ namespace MVCData_Group5.Controllers
 
             ShoppingCart.Add(movieId);
             return RedirectToAction("Index");
+        }
+
+        public ActionResult Cart()
+        {
+            var movieIds = ShoppingCart.Keys.Where(k => ShoppingCart[k] > 0).ToArray();
+
+            IQueryable<Movie> query = db.Movies
+                .Where(m => movieIds.Contains(m.Id));
+            ViewBag.Query = query.ToString();
+
+            var model = query
+                .ToList()
+                .Select(m => new ShoppingCartMovieViewModel { Title = m.Title, Price = m.Price, AmountInCart = ShoppingCart[m.Id] });
+
+            ViewBag.Total = ShoppingCart.Total;
+            ViewBag.OrderTotal = model.Sum(vm => vm.Price * vm.AmountInCart);
+
+            return View(model);
         }
 
         protected override void Dispose(bool disposing)

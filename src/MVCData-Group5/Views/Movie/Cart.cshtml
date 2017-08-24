@@ -1,0 +1,51 @@
+﻿@model IEnumerable<MVCData_Group5.Models.ViewModels.ShoppingCartMovieViewModel>
+
+@{
+    ViewBag.Title = "Cart";
+}
+
+<h2>Cart</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AmountInCart)
+            </th>
+        </tr>
+    </thead>
+    <tfoot>
+        <tr>
+            <td><strong>Total</strong></td>
+            <td>@ViewBag.OrderTotal.ToString("C")</td>
+            <td>@ViewBag.Total</td>
+        </tr>
+    </tfoot>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AmountInCart)
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+<pre class="hidden">
+@ViewBag.Query
+</pre>

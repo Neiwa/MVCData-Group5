@@ -278,6 +278,7 @@
     <Content Include="Views\Movie\Add.cshtml" />
     <Content Include="Views\Movie\Index.cshtml" />
     <Content Include="Views\Shared\_movieRowPartial.cshtml" />
+    <Content Include="Views\Movie\Cart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

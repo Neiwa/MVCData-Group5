@@ -56,4 +56,19 @@ namespace MVCData_Group5.Models.ViewModels
         [DataType(DataType.Currency)]
         public double Price { get; set; }
     }
+
+    public class ShoppingCartMovieViewModel
+    {
+        [Required]
+        [MaxLength(250)]
+        public string Title { get; set; }
+
+        [Required]
+        [DataType(DataType.Currency)]
+        public double Price { get; set; }
+
+        [Display(Name = "Amount")]
+        public int AmountInCart { get; set; }
+        public int Id { get; internal set; }
+    }
 }
