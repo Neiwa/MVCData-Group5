@@ -122,6 +122,14 @@ namespace MVCData_Group5.Controllers
         }
 
         [HttpPost]
+        public ActionResult EmptyCart()
+        {
+            ShoppingCart.Clear();
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
         public ActionResult ReduceAllByOne()
         {
             ShoppingCart.RemoveOneOfAll();

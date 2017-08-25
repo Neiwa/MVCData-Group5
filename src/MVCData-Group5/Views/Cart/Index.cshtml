@@ -43,18 +43,15 @@
                     @Html.DisplayFor(modelItem => item.Amount)
                 </td>
                 <td>
-                    @using (Html.BeginForm("ModifyAmount", "Cart", FormMethod.Post, new { @class = "btn-group" }))
-                    {
-                        <button type="submit" class="btn btn-danger"><span class="glyphicon glyphicon-minus"></span></button>
-                        @Html.Hidden("id", item.Id)
-                        @Html.Hidden("amount", item.Amount - 1)
-                    }
-                    @using (Html.BeginForm("ModifyAmount", "Cart", FormMethod.Post, new { @class = "btn-group inline" }))
-                    {
-                        @Html.Hidden("id", item.Id)
-                        @Html.Hidden("amount", item.Amount + 1)
-                        <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button>
-                    }
+                    <div class="btn-toolbar">
+                        <div class="btn-group">
+                            <button onclick="setAmount(@item.Id, @(item.Amount - 1))" class="btn btn-warning"><span class="glyphicon glyphicon-minus"></span></button>
+                            <button onclick="setAmount(@item.Id, @(item.Amount + 1))" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button>
+                        </div>
+                        <div class="btn-group">
+                            <button onclick="setAmount(@item.Id, 0)" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button>
+                        </div>
+                    </div>
                 </td>
             </tr>
         }
@@ -62,13 +59,30 @@
 
 </table>
 
-@using (Html.BeginForm("ReduceAllByOne", "Cart"))
+    <button onclick="emptyCart()" class="btn btn-danger">Empty Cart</button>
+
+
+@Html.ActionLink("Check out", "CheckOut", null, new { @class = "btn btn-primary" })
+
+@using (Html.BeginForm("EmptyCart", "Cart", FormMethod.Post, new { id = "emptyCart" }))
+{ }
+@using (Html.BeginForm("ModifyAmount", "Cart", FormMethod.Post, new { id = "changeAmount" }))
 {
-    <input type="submit" name="reduceAll" value="Remove one of all movies" />
+    @Html.Hidden("id", 0)
+    @Html.Hidden("amount", 0)
 }
 
-@Html.ActionLink("Check out", "CheckOut", null, new { @class = "btn btn-default" })
-
-<pre class="hidden">
-@ViewBag.Query
-</pre>
+@section Scripts {
+    <script>
+        function setAmount(id, amount)
+        {
+            $("#id").val(id);
+            $("#amount").val(amount);
+            $("#changeAmount").submit();
+        }
+        function emptyCart()
+        {
+            $("#emptyCart").submit();
+        }
+    </script>
+}
