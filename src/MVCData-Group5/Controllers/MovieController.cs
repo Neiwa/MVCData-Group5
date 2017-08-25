@@ -70,5 +70,78 @@ namespace MVCData_Group5.Controllers
 
             return View(movie);
         }
+
+        public ActionResult Front()
+        {
+            return View();
+        }
+
+        public ActionResult PopularMovies(int count = 5)
+        {
+            count = count < 1 ? 1 : count;
+
+            var model = db.Movies.OrderByDescending(m => m.OrderRows.Count()).Take(count).Select(m => new DisplayMovieViewModel
+            {
+                Id = m.Id,
+                Title = m.Title,
+                Director = m.Director,
+                Price = m.Price,
+                ReleaseYear = m.ReleaseYear,
+                ImageUrl = m.ImageUrl
+            });
+
+            return PartialView("MultipleMovies",model.ToList());
+        }
+
+        public ActionResult NewestMovies(int count = 5)
+        {
+            count = count < 1 ? 1 : count;
+
+            var model = db.Movies.OrderByDescending(m => m.ReleaseYear).Take(count).Select(m => new DisplayMovieViewModel
+            {
+                Id = m.Id,
+                Title = m.Title,
+                Director = m.Director,
+                Price = m.Price,
+                ReleaseYear = m.ReleaseYear,
+                ImageUrl = m.ImageUrl
+            });
+
+            return PartialView("MultipleMovies", model.ToList());
+        }
+
+        public ActionResult OldestMovies(int count = 5)
+        {
+            count = count < 1 ? 1 : count;
+
+            var model = db.Movies.OrderBy(m => m.ReleaseYear).Take(count).Select(m => new DisplayMovieViewModel
+            {
+                Id = m.Id,
+                Title = m.Title,
+                Director = m.Director,
+                Price = m.Price,
+                ReleaseYear = m.ReleaseYear,
+                ImageUrl = m.ImageUrl
+            });
+
+            return PartialView("MultipleMovies", model.ToList());
+        }
+
+        public ActionResult CheapestMovies(int count = 5)
+        {
+            count = count < 1 ? 1 : count;
+
+            var model = db.Movies.OrderBy(m => m.Price).Take(count).Select(m => new DisplayMovieViewModel
+            {
+                Id = m.Id,
+                Title = m.Title,
+                Director = m.Director,
+                Price = m.Price,
+                ReleaseYear = m.ReleaseYear,
+                ImageUrl = m.ImageUrl
+            });
+
+            return PartialView("MultipleMovies", model.ToList());
+        }
     }
 }

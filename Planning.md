@@ -9,5 +9,5 @@ Planning
 - [x] Display Order Cart
 - [x] New Customer
 - [x] Order Complete
-- [ ] List Orders
-- [ ] __Partial__: View Order
+- [x] List Orders
+- [x] __Partial__: View Order

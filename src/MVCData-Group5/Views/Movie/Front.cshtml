@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "Front";
+}
+
+<h2>Front</h2>
+
+<h3>Popular Movies</h3>
+@{
+    Html.RenderAction("PopularMovies");
+}
+<hr />
+<h3>Newest Movies</h3>
+@{
+    Html.RenderAction("NewestMovies");
+}
+<hr />
+<h3>Oldest Movies</h3>
+@{
+    Html.RenderAction("OldestMovies");
+}
+<hr />
+<h3>Cheapest Movies</h3>
+@{
+    Html.RenderAction("CheapestMovies");
+}
+<hr />
+<h3>Most Expensive Order</h3>
+@{ 
+    Html.RenderAction("MostExpensiveOrder", "Order");
+}
