@@ -11,14 +11,19 @@ using System.Web.Mvc;
 namespace MVCData_Group5.Controllers
 {
     public class MovieController : MovieDbController
-    {        
+    {
+        public ActionResult Index()
+        {
+            return View();
+        }
+
         // GET: Movie
-        public ActionResult Index(int length = 10, int page = 1)
+        public ActionResult List(int length = 9, int page = 1)
         {
             // Decrement page for easier calculations, but not less than 0
             page = --page < 0 ? 0 : page;
             // Ensure length is positive
-            length = length > 0 ? length : 10;
+            length = length > 0 ? length : 9;
             var model = db.Movies.OrderBy(m => m.Id).Skip(length * page).Take(length).Select(m => new DisplayMovieViewModel
             {
                 Id = m.Id,
@@ -69,11 +74,6 @@ namespace MVCData_Group5.Controllers
             }
 
             return View(movie);
-        }
-
-        public ActionResult Front()
-        {
-            return View();
         }
 
         public ActionResult PopularMovies(int count = 5)

@@ -16,12 +16,12 @@ namespace MVCData_Group5
             routes.MapRoute(
                 name: "MovieIndexPage1",
                 url: "Movie/",
-                defaults: new { controller = "Movie", action = "Index", page = 1 }
+                defaults: new { controller = "Movie", action = "Index" }
             );
             routes.MapRoute(
                 name: "MovieIndex",
                 url: "Movie/Page/{page}",
-                defaults: new { controller = "Movie", action = "Index" },
+                defaults: new { controller = "Movie", action = "List" },
                 constraints: new { page = @"\d+" }
             );
 

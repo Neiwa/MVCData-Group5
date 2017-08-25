@@ -287,7 +287,6 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Movie\Add.cshtml" />
-    <Content Include="Views\Movie\Index.cshtml" />
     <Content Include="Views\Movie\_movieRowPartial.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Cart\CheckOut.cshtml" />
@@ -296,9 +295,10 @@
     <Content Include="Views\Order\ViewForCustomer.cshtml" />
     <Content Include="Views\Order\View.cshtml" />
     <Content Include="Views\Movie\MultipleMovies.cshtml" />
-    <Content Include="Views\Movie\Front.cshtml" />
     <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\Cart\_NavBarCartDisplay.cshtml" />
+    <Content Include="Views\Movie\Index.cshtml" />
+    <Content Include="Views\Movie\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,19 +1,31 @@
-﻿@model IEnumerable<MVCData_Group5.Models.ViewModels.DisplayMovieViewModel>
-
+﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Front";
 }
 
-<h2>Index</h2>
+<h2>Front</h2>
 
-<p>
-    @Html.ActionLink("Add Movie", "Add")
-</p>
-
-<div class="row">
-    @foreach (var movie in Model)
-{
-    Html.RenderAction("MovieEntry", movie);
+<h3>Popular Movies</h3>
+@{
+    Html.RenderAction("PopularMovies");
 }
-</div>
-
+<hr />
+<h3>Newest Movies</h3>
+@{
+    Html.RenderAction("NewestMovies");
+}
+<hr />
+<h3>Oldest Movies</h3>
+@{
+    Html.RenderAction("OldestMovies");
+}
+<hr />
+<h3>Cheapest Movies</h3>
+@{
+    Html.RenderAction("CheapestMovies");
+}
+<hr />
+<h3>Most Expensive Order</h3>
+@{ 
+    Html.RenderAction("MostExpensiveOrder", "Order");
+}
