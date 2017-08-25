@@ -1,48 +1,31 @@
 ﻿@model MVCData_Group5.Models.ViewModels.DisplayMovieViewModel
 
 <div class="col-md-4">
-    @if (!string.IsNullOrEmpty(Model.ImageUrl))
-    {
-        <img src="@Model.ImageUrl" height="50" width="50" />
-    }
-    <dl class="dl-vertical">
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
+    <div class="thumbnail">
+        <img src="@(string.IsNullOrEmpty(Model.ImageUrl) ? "http://via.placeholder.com/182x268" : Model.ImageUrl)" height="268" width="182" class="img-rounded" />
+        <div class="caption">
+            
+            <h3 style="min-height:2.5em;">@Html.DisplayFor(model => model.Title)</h3>
 
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
+            <dl class="dl-horizontal">
+                <dt>@Html.DisplayNameFor(model => model.ReleaseYear)</dt>
+                <dd>@Html.DisplayFor(model => model.ReleaseYear)</dd>
+                <dt>@Html.DisplayNameFor(model => model.Director)</dt>
+                <dd>@Html.DisplayFor(model => model.Director)</dd>
+        </dl>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Director)
-        </dt>
+            <div class="text-right">
+                @using (Html.BeginForm("AddToCart", "Cart", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-inline" }))
+                {
+                    @Html.Hidden("movieId", Model.Id)
+                    <p class="lead">
+                        @Html.DisplayFor(model => model.Price)
+                        <button type="submit" class="btn btn-success">Add to Cart</button>
+                    </p>
+                }
 
-        <dd>
-            @Html.DisplayFor(model => model.Director)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ReleaseYear)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ReleaseYear)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-
-    </dl>
-
-    @using (Html.BeginForm("AddToCart", "Cart", new { ReturnUrl = ViewBag.ReturnUrl }))
-    {
-        @Html.Hidden("movieId", Model.Id)
-        <input type="submit" name="addToCart" value="Add to Cart" />
-    }
+            </div>
+        </div>
+    </div>
 </div>

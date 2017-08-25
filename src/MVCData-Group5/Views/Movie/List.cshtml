@@ -4,7 +4,7 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Browse Movies</h2>
 
 <div class="row">
     @foreach (var movie in Model)
@@ -15,18 +15,36 @@
 <div class="row">
     <nav aria-label="Page navigation">
         <ul class="pagination">
-            <li class="@(ViewBag.CurrentPage == 1 ? "disabled" : "")">
-                @Html.ActionLink("«", "List", new { page = (ViewBag.CurrentPage - 1), length = ViewBag.Length })
-            </li>
+            @if (ViewBag.CurrentPage == 1)
+            {
+                <li class="disabled">
+                    <a>«</a>
+                </li>
+            }
+            else
+            {
+                <li>
+                    @Html.ActionLink("«", "List", new { page = (ViewBag.CurrentPage - 1), length = ViewBag.Length })
+                </li>
+            }
             @for (int i = 1; i <= ViewBag.Pages; i++)
             {
                 <li class="@(i == ViewBag.CurrentPage ? "active" : "")">
                     @Html.ActionLink(i.ToString(), "List", new { page = i, length = ViewBag.Length })
                 </li>
             }
-            <li class="@(ViewBag.CurrentPage == ViewBag.Pages ? "disabled" : "")">
-                @Html.ActionLink("»", "List", new { page = (ViewBag.CurrentPage + 1), length = ViewBag.Length })
-            </li>
+            @if (ViewBag.CurrentPage == ViewBag.Pages)
+            {
+                <li class="disabled">
+                    <a>»</a>
+                </li>
+            }
+            else
+            {
+                <li>
+                    @Html.ActionLink("»", "List", new { page = (ViewBag.CurrentPage + 1), length = ViewBag.Length })
+                </li>
+            }
         </ul>
     </nav>
 </div>
