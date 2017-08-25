@@ -1,0 +1,11 @@
+﻿<ul class="nav navbar-nav navbar-right">
+    <li>
+        <a href="@Url.Action("Index", "Cart")" class="btn">
+            <span class="glyphicon glyphicon-shopping-cart"></span>
+            <span class="badge">@ViewBag.AmountItems</span>
+            &nbsp;
+            @ViewBag.OrderTotal.ToString("C")
+        </a>
+    </li>
+    <li role="separator">&nbsp;</li>
+</ul>

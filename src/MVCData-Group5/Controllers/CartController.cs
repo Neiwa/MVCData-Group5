@@ -44,6 +44,15 @@ namespace MVCData_Group5.Controllers
             }
         }
 
+        [ChildActionOnly]
+        public ActionResult NavBarCartDisplay()
+        {
+            ViewBag.AmountItems = ShoppingCart.AmountItems;
+            ViewBag.OrderTotal = ShoppingCartTotal;
+
+            return PartialView("_NavBarCartDisplay");
+        }
+
         [HttpPost]
         public ActionResult AddToCart(int movieId, string returnUrl)
         {
@@ -178,6 +187,7 @@ namespace MVCData_Group5.Controllers
             db.SaveChanges();
 
             ShoppingCart.Clear();
+            UpdateShoppingCartTotal();
 
             return true;
         }

@@ -298,6 +298,7 @@
     <Content Include="Views\Movie\MultipleMovies.cshtml" />
     <Content Include="Views\Movie\Front.cshtml" />
     <Content Include="Views\Order\Index.cshtml" />
+    <Content Include="Views\Cart\_NavBarCartDisplay.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
