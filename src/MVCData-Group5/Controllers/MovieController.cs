@@ -24,6 +24,11 @@ namespace MVCData_Group5.Controllers
             page = --page < 0 ? 0 : page;
             // Ensure length is positive
             length = length > 0 ? length : 9;
+
+            ViewBag.Pages = (db.Movies.Count() + length - 1) / length;
+            ViewBag.CurrentPage = page + 1;
+            ViewBag.Length = length;
+
             var model = db.Movies.OrderBy(m => m.Id).Skip(length * page).Take(length).Select(m => new DisplayMovieViewModel
             {
                 Id = m.Id,
@@ -90,7 +95,7 @@ namespace MVCData_Group5.Controllers
                 ImageUrl = m.ImageUrl
             });
 
-            return PartialView("MultipleMovies",model.ToList());
+            return PartialView("MultipleMovies", model.ToList());
         }
 
         public ActionResult NewestMovies(int count = 5)

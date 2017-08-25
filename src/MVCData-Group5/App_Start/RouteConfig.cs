@@ -14,12 +14,12 @@ namespace MVCData_Group5
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                name: "MovieIndexPage1",
-                url: "Movie/",
-                defaults: new { controller = "Movie", action = "Index" }
+                name: "MovieListPage1",
+                url: "Movie/Page/1",
+                defaults: new { controller = "Movie", action = "List", page = 1 }
             );
             routes.MapRoute(
-                name: "MovieIndex",
+                name: "MovieList",
                 url: "Movie/Page/{page}",
                 defaults: new { controller = "Movie", action = "List" },
                 constraints: new { page = @"\d+" }
