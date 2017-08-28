@@ -146,24 +146,30 @@ namespace MVCData_Group5.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [ActionName("CheckOut")]
         public ActionResult CheckOutSubmit(CheckOutViewModel model)
         {
             if (ShoppingCart.AmountItems == 0)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", model);
             }
 
             if (ModelState.IsValid)
             {
                 Customer customer = db.Customers.FirstOrDefault(c => c.EmailAddress == model.EmailAddress);
+                if(customer == null)
+                {
+                    // Error handling
+                }
+
                 if (customer != null && CheckOut(customer))
                 {
                     return RedirectToAction("CheckOutComplete");
                 }
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", model);
         }
 
         [ChildActionOnly]
