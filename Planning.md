@@ -2,7 +2,7 @@ Planning
 ========
 
 ### Pages needed:
-- [ ] Front Page
+- [x] Front Page
 - [x] Add Movie
 - [x] List Movies
 - [x] __Partial__: Movie Row
