@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MVCData_Group5.Models.ViewModels.ShoppingCartMovieViewModel>
+﻿@model MVCData_Group5.Models.ViewModels.ShoppingCartViewModel
 
 @{
     ViewBag.Title = "Cart";
@@ -10,13 +10,13 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Title)
+                @Html.DisplayNameFor(model => model.Movies.First().Title)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Price)
+                @Html.DisplayNameFor(model => model.Movies.First().Price)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Amount)
+                @Html.DisplayNameFor(model => model.Movies.First().Amount)
             </th>
             <th></th>
         </tr>
@@ -24,13 +24,13 @@
     <tfoot>
         <tr>
             <td><strong>Total</strong></td>
-            <td>@ViewBag.OrderTotal.ToString("C")</td>
-            <td>@ViewBag.MovieCount</td>
+            <td>@Html.DisplayFor(model => model.OrderTotal)</td>
+            <td>@Html.DisplayFor(model => model.MovieCount)</td>
             <td></td>
         </tr>
     </tfoot>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model.Movies)
         {
             <tr>
                 <td>
@@ -59,10 +59,12 @@
 
 </table>
 
+<div>
     <button onclick="emptyCart()" class="btn btn-danger">Empty Cart</button>
+    @*@Html.ActionLink("Check out", "CheckOut", null, new { @class = "btn btn-primary" })*@
+</div>
 
-
-@Html.ActionLink("Check out", "CheckOut", null, new { @class = "btn btn-primary" })
+@Html.Action("CheckOut")
 
 @using (Html.BeginForm("EmptyCart", "Cart", FormMethod.Post, new { id = "emptyCart" }))
 { }
@@ -74,14 +76,12 @@
 
 @section Scripts {
     <script>
-        function setAmount(id, amount)
-        {
+        function setAmount(id, amount) {
             $("#id").val(id);
             $("#amount").val(amount);
             $("#changeAmount").submit();
         }
-        function emptyCart()
-        {
+        function emptyCart() {
             $("#emptyCart").submit();
         }
     </script>

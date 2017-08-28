@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using MVCData_Group5.Models.Validators;
 
 namespace MVCData_Group5.Models.ViewModels
 {
@@ -23,18 +24,19 @@ namespace MVCData_Group5.Models.ViewModels
         [DataType(DataType.PostalCode)]
         [Required]
         public string DeliveryZip { get; set; }
+
+        [RequiredIfFalse("SameBillingAsDelivery")]
         public string BillingAddress { get; set; }
+
+        [RequiredIfFalse("SameBillingAsDelivery")]
         public string BillingCity { get; set; }
 
         [DataType(DataType.PostalCode)]
+        [RequiredIfFalse("SameBillingAsDelivery")]
         public string BillingZip { get; set; }
 
         [Phone]
         [Required]
         public string PhoneNo { get; set; }
-
-        public int MovieCount { get; set; }
-        [DataType(DataType.Currency)]
-        public double OrderTotal { get; set; }
     }
 }

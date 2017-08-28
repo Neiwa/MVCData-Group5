@@ -44,6 +44,19 @@ namespace MVCData_Group5.Controllers
             }
         }
 
+        protected double UpdateShoppingCartTotal(List<Movie> movies = null)
+        {
+            var movieIds = ShoppingCart.Keys.Where(k => ShoppingCart[k] > 0).ToArray();
+            if (movies == null || movieIds.Except(movies.Select(m => m.Id)).Count() > 0)
+            {
+                movies = db.Movies.Where(m => movieIds.Contains(m.Id)).ToList();
+            }
+
+            double total = movies.Sum(m => m.Price * ShoppingCart[m.Id]);
+            ShoppingCartTotal = total;
+            return total;
+        }
+
         [ChildActionOnly]
         public ActionResult NavBarCartDisplay()
         {
@@ -72,19 +85,6 @@ namespace MVCData_Group5.Controllers
             }
         }
 
-        private double UpdateShoppingCartTotal(List<Movie> movies = null)
-        {
-            var movieIds = ShoppingCart.Keys.Where(k => ShoppingCart[k] > 0).ToArray();
-            if (movies == null || movieIds.Except(movies.Select(m => m.Id)).Count() > 0)
-            {
-                movies = db.Movies.Where(m => movieIds.Contains(m.Id)).ToList();
-            }
-
-            double total = movies.Sum(m => m.Price * ShoppingCart[m.Id]);
-            ShoppingCartTotal = total;
-            return total;
-        }
-
         public ActionResult Index()
         {
             var movieIds = ShoppingCart.Keys.Where(k => ShoppingCart[k] > 0).ToArray();
@@ -94,7 +94,7 @@ namespace MVCData_Group5.Controllers
             ViewBag.Query = query.ToString();
 
             List<Movie> movies = query.ToList();
-            var model = movies.Select(m => new ShoppingCartMovieViewModel
+            var movieVMs = movies.Select(m => new ShoppingCartMovieViewModel
             {
                 Id = m.Id,
                 Title = m.Title,
@@ -102,10 +102,12 @@ namespace MVCData_Group5.Controllers
                 Amount = ShoppingCart[m.Id]
             });
 
-            ShoppingCartTotal = model.Sum(vm => vm.Price * vm.Amount);
-
-            ViewBag.MovieCount = ShoppingCart.AmountItems;
-            ViewBag.OrderTotal = UpdateShoppingCartTotal(movies);
+            var model = new ShoppingCartViewModel
+            {
+                Movies = movieVMs.ToList(),
+                MovieCount = ShoppingCart.AmountItems,
+                OrderTotal = UpdateShoppingCartTotal(movies)
+            };
 
             return View(model);
         }
@@ -137,18 +139,21 @@ namespace MVCData_Group5.Controllers
             return RedirectToAction("Index");
         }
 
+        [ChildActionOnly]
         public ActionResult CheckOut(CheckOutViewModel model)
         {
-            model.MovieCount = ShoppingCart.AmountItems;
-            model.OrderTotal = UpdateShoppingCartTotal();
-
-            return View(model);
+            return PartialView(model);
         }
 
         [HttpPost]
         [ActionName("CheckOut")]
         public ActionResult CheckOutSubmit(CheckOutViewModel model)
         {
+            if (ShoppingCart.AmountItems == 0)
+            {
+                return RedirectToAction("Index");
+            }
+
             if (ModelState.IsValid)
             {
                 Customer customer = db.Customers.FirstOrDefault(c => c.EmailAddress == model.EmailAddress);
@@ -157,10 +162,81 @@ namespace MVCData_Group5.Controllers
                     return RedirectToAction("CheckOutComplete");
                 }
             }
-            model.MovieCount = ShoppingCart.AmountItems;
-            model.OrderTotal = UpdateShoppingCartTotal();
+
+            return RedirectToAction("Index");
+        }
+
+        [ChildActionOnly]
+        public ActionResult CheckOutOrderDetails()
+        {
+            var model = new CheckOutOrderDetailsViewModel
+            {
+                MovieCount = ShoppingCart.AmountItems,
+                OrderTotal = UpdateShoppingCartTotal()
+            };
+
+            return PartialView(model);
+        }
+
+        public ActionResult CheckOutNewCustomer()
+        {
+            if (ShoppingCart.AmountItems == 0)
+            {
+                return RedirectToAction("Index");
+            }
+
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ActionName("CheckOutNewCustomer")]
+        public ActionResult CheckOutNewCustomerSubmit(CheckOutNewUserViewModel model)
+        {
+            if (ShoppingCart.AmountItems == 0)
+            {
+                return RedirectToAction("Index");
+            }
+
+            if (ModelState.IsValid)
+            {
+                Customer customer = new Customer
+                {
+                    Firstname = model.Firstname,
+                    Lastname = model.Lastname,
+                    DeliveryAddress = model.DeliveryAddress,
+                    DeliveryCity = model.DeliveryCity,
+                    DeliveryZip = model.DeliveryZip,
+                    EmailAddress = model.EmailAddress,
+                    PhoneNo = model.PhoneNo
+                };
+
+                if (model.SameBillingAsDelivery)
+                {
+                    customer.BillingAddress = model.DeliveryAddress;
+                    customer.BillingCity = model.DeliveryCity;
+                    customer.BillingZip = model.DeliveryZip;
+                }
+                else
+                {
+                    customer.BillingAddress = model.BillingAddress;
+                    customer.BillingCity = model.BillingCity;
+                    customer.BillingZip = model.BillingZip;
+                }
+
+                if (CheckOut(customer))
+                {
+                    return RedirectToAction("CheckOutComplete");
+                }
+            }
 
             return View(model);
+        }
+
+        public ActionResult CheckOutComplete()
+        {
+
+            return View();
         }
 
         private bool CheckOut(Customer customer)
@@ -198,62 +274,6 @@ namespace MVCData_Group5.Controllers
             UpdateShoppingCartTotal();
 
             return true;
-        }
-
-        public ActionResult CheckOutNewCustomer(CheckOutNewUserViewModel model)
-        {
-            model.MovieCount = ShoppingCart.AmountItems;
-            model.OrderTotal = UpdateShoppingCartTotal();
-
-            return View(model);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [ActionName("CheckOutNewCustomer")]
-        public ActionResult CheckOutNewCustomerSubmit(CheckOutNewUserViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                Customer customer = new Customer
-                {
-                    Firstname = model.Firstname,
-                    Lastname = model.Lastname,
-                    DeliveryAddress = model.DeliveryAddress,
-                    DeliveryCity = model.DeliveryCity,
-                    DeliveryZip = model.DeliveryZip,
-                    EmailAddress = model.EmailAddress,
-                    PhoneNo = model.PhoneNo
-                };
-
-                if (model.SameBillingAsDelivery)
-                {
-                    customer.BillingAddress = model.DeliveryAddress;
-                    customer.BillingCity = model.DeliveryCity;
-                    customer.BillingZip = model.DeliveryZip;
-                }
-                else
-                {
-                    customer.BillingAddress = model.BillingAddress;
-                    customer.BillingCity = model.BillingCity;
-                    customer.BillingZip = model.BillingZip;
-                }
-
-                if (CheckOut(customer))
-                {
-                    return RedirectToAction("CheckOutComplete");
-                }
-            }
-            model.MovieCount = ShoppingCart.AmountItems;
-            model.OrderTotal = UpdateShoppingCartTotal();
-
-            return View(model);
-        }
-
-        public ActionResult CheckOutComplete()
-        {
-
-            return View();
         }
     }
 }

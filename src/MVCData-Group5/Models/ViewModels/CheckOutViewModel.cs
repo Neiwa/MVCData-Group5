@@ -6,11 +6,7 @@ namespace MVCData_Group5.Models.ViewModels
     {
         [EmailAddress]
         [Required]
+        [Display(Name = "Email Address")]
         public string EmailAddress { get; set; }
-
-        public int MovieCount { get; set; }
-
-        [DataType(DataType.Currency)]
-        public double OrderTotal { get; set; }
     }
 }

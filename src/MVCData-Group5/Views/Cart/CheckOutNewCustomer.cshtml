@@ -2,27 +2,12 @@
 
 @{
     ViewBag.Title = "CheckOutNewCustomer";
+
 }
 
 <h2>CheckOutNewCustomer</h2>
 
-<dl class="dl-horizontal">
-    <dt>
-        @Html.DisplayNameFor(model => model.MovieCount)
-    </dt>
-
-    <dd>
-        @Html.DisplayFor(model => model.MovieCount)
-    </dd>
-    <dt>
-        @Html.DisplayNameFor(model => model.OrderTotal)
-    </dt>
-
-    <dd>
-        @Html.DisplayFor(model => model.OrderTotal)
-    </dd>
-
-</dl>
+@Html.Action("CheckOutOrderDetails")
 
 @using (Html.BeginForm())
 {
