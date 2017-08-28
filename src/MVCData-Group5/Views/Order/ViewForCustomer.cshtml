@@ -22,8 +22,9 @@
     </dd>
 
 </dl>
-
-@foreach (var order in Model.Orders)
-{
-    Html.RenderAction("View", order);
-}
+<div class="row">
+    @foreach (var order in Model.Orders)
+    {
+        @Html.Partial("_SingleOrderDetailsPartial", order)
+    }
+</div>

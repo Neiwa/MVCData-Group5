@@ -6,26 +6,21 @@
 <h2>Front</h2>
 
 <h3>Popular Movies</h3>
-@{
-    Html.RenderAction("PopularMovies");
-}
+@Html.Action("PopularMovies")
 <hr />
 <h3>Newest Movies</h3>
-@{
-    Html.RenderAction("NewestMovies");
-}
+@Html.Action("NewestMovies")
 <hr />
 <h3>Oldest Movies</h3>
-@{
-    Html.RenderAction("OldestMovies");
-}
+@Html.Action("OldestMovies")
 <hr />
 <h3>Cheapest Movies</h3>
-@{
-    Html.RenderAction("CheapestMovies");
-}
+
+@Html.Action("CheapestMovies")
 <hr />
 <h3>Most Expensive Order</h3>
-@{ 
-    Html.RenderAction("MostExpensiveOrder", "Order");
-}
+
+<div class="row">
+    @Html.Action("MostExpensiveOrder", "Order")
+</div>
+

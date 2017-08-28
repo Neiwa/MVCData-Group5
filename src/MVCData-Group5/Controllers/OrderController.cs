@@ -16,21 +16,20 @@ namespace MVCData_Group5.Controllers
             return View();
         }
 
-        [ChildActionOnly]
-        public ActionResult View(CustomerOrderViewModel model)
-        {
-
-            return PartialView(model);
-        }
-
         public ActionResult ViewForCustomer(string email)
         {
             if(email == null)
             {
-                RedirectToAction("Index");
+                return RedirectToAction("Index");
             }
 
             Models.Database.Customer customer = db.Customers.FirstOrDefault(c => c.EmailAddress == email);
+
+            if(customer == null)
+            {
+                return RedirectToAction("Index");
+            }
+
             var query = customer.Orders.Select(o => new CustomerOrderViewModel
             {
                 OrderDate = o.OrderDate,
@@ -38,10 +37,11 @@ namespace MVCData_Group5.Controllers
                 {
                     Id = g.Key.Id,
                     Title = g.Key.Title,
-                    Price = g.Key.Price,
+                    Price = g.First().Price,
                     Amount = g.Count()
                 }).ToList(),
-                TotalCost = o.OrderRows.Sum(r => r.Price)
+                TotalCost = o.OrderRows.Sum(r => r.Price),
+                MovieCount = o.OrderRows.Count()
             });
 
             var model = new CustomerOrdersViewModel
@@ -54,23 +54,19 @@ namespace MVCData_Group5.Controllers
             return View(model);
         }
 
+        [ChildActionOnly]
         public ActionResult MostExpensiveOrder()
         {
             var order = db.Orders.OrderByDescending(o => o.OrderRows.Sum(r => r.Price)).First();
-            var model = new CustomerOrderViewModel
+            var model = new OrderSummaryViewModel
             {
                 OrderDate = order.OrderDate,
                 TotalCost = order.OrderRows.Sum(r => r.Price),
-                Movies = order.OrderRows.GroupBy(r => r.Movie).Select(g => new ShoppingCartMovieViewModel
-                {
-                    Id = g.Key.Id,
-                    Title = g.Key.Title,
-                    Price = g.Key.Price,
-                    Amount = g.Count()
-                }).ToList()
+                MovieCount = order.OrderRows.Count(),
+                Name = $"{order.Customer.Firstname} {order.Customer.Lastname}"
             };
 
-            return PartialView("View", model);
+            return PartialView("_SingleOrderSummaryPartial", model);
         }
     }
 }
