@@ -6,6 +6,24 @@
 
 <h2>Browse Movies</h2>
 
+<div class="row">
+
+    <div class="col-lg-4">
+        @using (Html.BeginForm("List", "Movie", null, FormMethod.Get, null))
+        {
+            <input type="hidden" name="length" value="@ViewBag.Length" />
+            <div class="form-group">
+                <div class="input-group">
+                    <input type="search" name="filter" placeholder="Type text to search..." class="form-control" />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit">Go!</button>
+                    </span>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
 @Html.Partial("MultipleMovies", Model)
 
 <div class="row">
@@ -20,13 +38,13 @@
             else
             {
                 <li>
-                    @Html.ActionLink("«", "List", new { page = (ViewBag.CurrentPage - 1), length = ViewBag.Length })
+                    @Html.ActionLink("«", "List", new { page = (ViewBag.CurrentPage - 1), length = ViewBag.Length, filter = ViewBag.Filter })
                 </li>
             }
             @for (int i = 1; i <= ViewBag.Pages; i++)
             {
                 <li class="@(i == ViewBag.CurrentPage ? "active" : "")">
-                    @Html.ActionLink(i.ToString(), "List", new { page = i, length = ViewBag.Length })
+                    @Html.ActionLink(i.ToString(), "List", new { page = i, length = ViewBag.Length, filter = ViewBag.Filter })
                 </li>
             }
             @if (ViewBag.CurrentPage == ViewBag.Pages)
@@ -38,7 +56,7 @@
             else
             {
                 <li>
-                    @Html.ActionLink("»", "List", new { page = (ViewBag.CurrentPage + 1), length = ViewBag.Length })
+                    @Html.ActionLink("»", "List", new { page = (ViewBag.CurrentPage + 1), length = ViewBag.Length, filter = ViewBag.Filter })
                 </li>
             }
         </ul>

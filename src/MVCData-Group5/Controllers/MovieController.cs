@@ -12,6 +12,8 @@ namespace MVCData_Group5.Controllers
 {
     public class MovieController : MovieDbController
     {
+        private const int MOVIES_PER_PAGE_DEFAULT = 9;
+
         public ActionResult Index()
         {
             return View();
@@ -25,18 +27,23 @@ namespace MVCData_Group5.Controllers
         }
 
         // GET: Movie
-        public ActionResult List(int length = 9, int page = 1)
+        public ActionResult List(string filter, int length = MOVIES_PER_PAGE_DEFAULT, int page = 1)
         {
             // Decrement page for easier calculations, but not less than 0
             page = --page < 0 ? 0 : page;
             // Ensure length is positive
-            length = length > 0 ? length : 9;
+            length = length > 0 ? length : MOVIES_PER_PAGE_DEFAULT;
+            
+            IQueryable<Movie> query = db.Movies;
 
-            ViewBag.Pages = (db.Movies.Count() + length - 1) / length;
-            ViewBag.CurrentPage = page + 1;
-            ViewBag.Length = length;
+            if (!string.IsNullOrWhiteSpace(filter))
+            {
+                query = query.Where(m => m.Title.Contains(filter));
+                ViewBag.Filter = filter;
+            }
+            ViewBag.Pages = (query.Count() + length - 1) / length;
 
-            var model = db.Movies.OrderBy(m => m.Id).Skip(length * page).Take(length).Select(m => new DisplayMovieViewModel
+            var model = query.OrderBy(m => m.Id).Skip(length * page).Take(length).Select(m => new DisplayMovieViewModel
             {
                 Id = m.Id,
                 Title = m.Title,
@@ -45,6 +52,11 @@ namespace MVCData_Group5.Controllers
                 ReleaseYear = m.ReleaseYear,
                 ImageUrl = m.ImageUrl
             });
+
+            ViewBag.CurrentPage = page + 1;
+            // Hides length from url if it is the default value
+            if (length != MOVIES_PER_PAGE_DEFAULT)
+                ViewBag.Length = length;
 
             return View(model.ToList());
         }
@@ -80,7 +92,7 @@ namespace MVCData_Group5.Controllers
                 db.Movies.Add(m);
                 db.SaveChanges();
 
-                TempData[DataKeys.MovieAdded] = movie.Title;
+                Messages.NewSuccess($"<em>{movie.Title}</em> was added.");
 
                 return RedirectToAction("Add");
             }

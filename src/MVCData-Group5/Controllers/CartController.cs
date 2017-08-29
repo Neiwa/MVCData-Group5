@@ -190,6 +190,7 @@ namespace MVCData_Group5.Controllers
         {
             if (ShoppingCart.AmountItems == 0)
             {
+                Messages.NewInfo("You can't check out an empty order.");
                 return RedirectToAction("Index");
             }
 
