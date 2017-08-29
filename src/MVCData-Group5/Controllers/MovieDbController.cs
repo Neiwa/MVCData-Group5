@@ -1,4 +1,6 @@
-﻿using MVCData_Group5.Models;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using MVCData_Group5.Models;
 using MVCData_Group5.Utilities;
 using System;
 using System.Collections.Generic;
@@ -24,6 +26,21 @@ namespace MVCData_Group5.Controllers
                 }
                 return list;
             }
+        }
+
+        protected UserManager<ApplicationUser> UserManager { get; set; }
+
+        protected ApplicationUser GetLoggedInUser()
+        {
+            if (!Request.IsAuthenticated)
+                return null;
+
+            return UserManager.FindById(User.Identity.GetUserId());
+        }
+
+        public MovieDbController()
+        {
+            UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
         }
 
         protected override void Dispose(bool disposing)

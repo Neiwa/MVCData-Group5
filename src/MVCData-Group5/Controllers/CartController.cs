@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using MVCData_Group5.Models;
+﻿using MVCData_Group5.Models;
 using MVCData_Group5.Models.Database;
 using MVCData_Group5.Models.ViewModels;
 using MVCData_Group5.Utilities;
@@ -44,21 +42,6 @@ namespace MVCData_Group5.Controllers
             {
                 Session[DataKeys.ShoppingCartTotal] = value;
             }
-        }
-
-        protected UserManager<ApplicationUser> UserManager { get; set; }
-
-        protected ApplicationUser GetLoggedInUser()
-        {
-            if (!Request.IsAuthenticated)
-                return null;
-
-            return UserManager.FindById(User.Identity.GetUserId());
-        }
-
-        public CartController()
-        {
-            UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
         }
 
         protected double UpdateShoppingCartTotal(IEnumerable<Movie> movies = null)
@@ -179,6 +162,7 @@ namespace MVCData_Group5.Controllers
                 if (customer == null)
                 {
                     // Error handling
+                    Messages.NewDanger("No details found for the specified email address!");
                 }
 
                 if (customer != null && CheckOut(customer))

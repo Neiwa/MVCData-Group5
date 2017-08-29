@@ -1,4 +1,5 @@
 ﻿using MVCData_Group5.Models.ViewModels;
+using MVCData_Group5.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,12 @@ namespace MVCData_Group5.Controllers
         // GET: Order
         public ActionResult Index()
         {
+            if(Request.IsAuthenticated)
+            {
+                string email = GetLoggedInUser()?.Customer?.EmailAddress;
+                if (email != null)
+                    return RedirectToAction("Orders", new { email });
+            }
             ViewBag.CustomerSL = new SelectList(db.Customers, "EmailAddress", "EmailAddress");
             return View();
         }
