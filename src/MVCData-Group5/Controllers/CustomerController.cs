@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace MVCData_Group5.Controllers
 {
-    public class OrderController : MovieDbController
+    public class CustomerController : MovieDbController
     {
         // GET: Order
         public ActionResult Index()
@@ -16,7 +16,7 @@ namespace MVCData_Group5.Controllers
             return View();
         }
 
-        public ActionResult ViewForCustomer(string email)
+        public ActionResult Orders(string email)
         {
             if(email == null)
             {

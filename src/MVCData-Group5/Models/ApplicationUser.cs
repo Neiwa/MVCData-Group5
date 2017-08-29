@@ -18,7 +18,7 @@ namespace MVCData_Group5.Models
             return userIdentity;
         }
 
-        public int CustomerId { get; set; }
+        public int? CustomerId { get; set; }
 
         public virtual Customer Customer { get; set; }
     }

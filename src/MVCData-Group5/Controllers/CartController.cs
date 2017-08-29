@@ -1,4 +1,6 @@
-﻿using MVCData_Group5.Models;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using MVCData_Group5.Models;
 using MVCData_Group5.Models.Database;
 using MVCData_Group5.Models.ViewModels;
 using MVCData_Group5.Utilities;
@@ -42,6 +44,21 @@ namespace MVCData_Group5.Controllers
             {
                 Session[DataKeys.ShoppingCartTotal] = value;
             }
+        }
+
+        protected UserManager<ApplicationUser> UserManager { get; set; }
+
+        protected ApplicationUser GetLoggedInUser()
+        {
+            if (!Request.IsAuthenticated)
+                return null;
+
+            return UserManager.FindById(User.Identity.GetUserId());
+        }
+
+        public CartController()
+        {
+            UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
         }
 
         protected double UpdateShoppingCartTotal(IEnumerable<Movie> movies = null)
@@ -159,7 +176,7 @@ namespace MVCData_Group5.Controllers
             if (ModelState.IsValid)
             {
                 Customer customer = db.Customers.FirstOrDefault(c => c.EmailAddress == model.EmailAddress);
-                if(customer == null)
+                if (customer == null)
                 {
                     // Error handling
                 }
@@ -192,7 +209,18 @@ namespace MVCData_Group5.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View();
+            var model = new CheckOutNewUserViewModel();
+            if (Request.IsAuthenticated)
+            {
+                ApplicationUser user = GetLoggedInUser();
+                if(user.Customer != null)
+                {
+                    return RedirectToAction("Index");
+                }
+                model.EmailAddress = user.Email;
+            }
+            ModelState.Clear();
+            return View(model);
         }
 
         [HttpPost]
@@ -232,6 +260,13 @@ namespace MVCData_Group5.Controllers
                     customer.BillingZip = model.BillingZip;
                 }
 
+                if (Request.IsAuthenticated)
+                {
+                    ApplicationUser user = GetLoggedInUser();
+                    user.Customer = customer;
+                    db.SaveChanges();
+                }
+
                 if (CheckOut(customer))
                 {
                     return RedirectToAction("CheckOutComplete");
@@ -239,6 +274,36 @@ namespace MVCData_Group5.Controllers
             }
 
             return View(model);
+        }
+
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public ActionResult CheckOutLoggedIn()
+        {
+            if (ShoppingCart.AmountItems == 0)
+            {
+                Messages.NewInfo("You can't check out an empty order.");
+                return RedirectToAction("Index");
+            }
+
+            ApplicationUser user = GetLoggedInUser();
+            if (user.Customer == null)
+            {
+                // Redirect to customer creation
+                return RedirectToAction("CheckOutNewCustomer");
+            }
+            else
+            {
+                if (CheckOut(user.Customer))
+                {
+                    return RedirectToAction("CheckOutComplete");
+                }
+            }
+
+
+
+            return RedirectToAction("Index");
         }
 
         public ActionResult CheckOutComplete()
@@ -281,7 +346,7 @@ namespace MVCData_Group5.Controllers
             db.SaveChanges();
 
             ShoppingCart.Clear();
-            UpdateShoppingCartTotal(movies.Select(kvp => kvp.Value));
+            UpdateShoppingCartTotal();
 
             return true;
         }

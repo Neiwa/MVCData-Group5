@@ -190,11 +190,15 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\MovieDbController.cs" />
-    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Migrations\201708240708024_Update Navigation Prop in Order.cs" />
     <Compile Include="Migrations\201708240708024_Update Navigation Prop in Order.Designer.cs">
       <DependentUpon>201708240708024_Update Navigation Prop in Order.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708291221170_CustomerIdIsOptional.cs" />
+    <Compile Include="Migrations\201708291221170_CustomerIdIsOptional.Designer.cs">
+      <DependentUpon>201708291221170_CustomerIdIsOptional.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\ViewModels\CheckOutNewUserViewModel.cs" />
     <Compile Include="Models\ViewModels\CheckOutOrderDetailsViewModel.cs" />
@@ -294,15 +298,15 @@
     <Content Include="Views\Cart\CheckOut.cshtml" />
     <Content Include="Views\Cart\CheckOutComplete.cshtml" />
     <Content Include="Views\Cart\CheckOutNewCustomer.cshtml" />
-    <Content Include="Views\Order\ViewForCustomer.cshtml" />
-    <Content Include="Views\Order\_SingleOrderDetailsPartial.cshtml" />
+    <Content Include="Views\Customer\Orders.cshtml" />
+    <Content Include="Views\Customer\_SingleOrderDetailsPartial.cshtml" />
     <Content Include="Views\Movie\MultipleMovies.cshtml" />
-    <Content Include="Views\Order\Index.cshtml" />
+    <Content Include="Views\Customer\Index.cshtml" />
     <Content Include="Views\Cart\_NavBarCartDisplay.cshtml" />
     <Content Include="Views\Movie\Index.cshtml" />
     <Content Include="Views\Movie\List.cshtml" />
     <Content Include="Views\Cart\CheckOutOrderDetails.cshtml" />
-    <Content Include="Views\Order\_SingleOrderSummaryPartial.cshtml" />
+    <Content Include="Views\Customer\_SingleOrderSummaryPartial.cshtml" />
     <Content Include="Views\Shared\_ViewMessagesPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -332,6 +336,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708240708024_Update Navigation Prop in Order.resx">
       <DependentUpon>201708240708024_Update Navigation Prop in Order.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708291221170_CustomerIdIsOptional.resx">
+      <DependentUpon>201708291221170_CustomerIdIsOptional.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -5,7 +5,7 @@
 
 <h2>Index</h2>
 
-@using (Html.BeginForm("ViewForCustomer", "Order", FormMethod.Get))
+@using (Html.BeginForm("Orders", "Customer", FormMethod.Get))
 {
     @Html.DropDownList("email", (SelectList)ViewBag.CustomerSL)
     <button type="submit" class="btn">View</button>
