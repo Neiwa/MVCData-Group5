@@ -17,6 +17,13 @@ namespace MVCData_Group5.Controllers
             return View();
         }
 
+        [ChildActionOnly]
+        public ActionResult ViewMessages()
+        {
+            var model = Messages.GetAll();
+            return PartialView("_ViewMessagesPartial", model);
+        }
+
         // GET: Movie
         public ActionResult List(int length = 9, int page = 1)
         {

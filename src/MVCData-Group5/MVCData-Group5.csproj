@@ -222,7 +222,8 @@
     <Compile Include="Models\Database\Order.cs" />
     <Compile Include="Models\Database\OrderRow.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\ShoppingCart.cs" />
+    <Compile Include="Utilities\Message.cs" />
+    <Compile Include="Utilities\ShoppingCart.cs" />
     <Compile Include="Models\ViewModels\CustomerOrdersViewModel.cs" />
     <Compile Include="Models\ViewModels\CustomerOrderViewModel.cs" />
     <Compile Include="Models\ViewModels\MovieViewModels.cs" />
@@ -302,6 +303,7 @@
     <Content Include="Views\Movie\List.cshtml" />
     <Content Include="Views\Cart\CheckOutOrderDetails.cshtml" />
     <Content Include="Views\Order\_SingleOrderSummaryPartial.cshtml" />
+    <Content Include="Views\Shared\_ViewMessagesPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

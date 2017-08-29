@@ -10,5 +10,6 @@ namespace MVCData_Group5.Utilities
         public const string MovieAdded = "MovieAdded";
         public const string ShoppingCart = "ShoppingCart";
         public const string ShoppingCartTotal = "ShoppingCartTotal";
+        public const string MessageContainer = "MessageContainer";
     }
 }

@@ -44,7 +44,7 @@ namespace MVCData_Group5.Controllers
             }
         }
 
-        protected double UpdateShoppingCartTotal(List<Movie> movies = null)
+        protected double UpdateShoppingCartTotal(IEnumerable<Movie> movies = null)
         {
             var movieIds = ShoppingCart.Keys.Where(k => ShoppingCart[k] > 0).ToArray();
             if (movies == null || movieIds.Except(movies.Select(m => m.Id)).Count() > 0)
@@ -152,6 +152,7 @@ namespace MVCData_Group5.Controllers
         {
             if (ShoppingCart.AmountItems == 0)
             {
+                Messages.NewInfo("You can't check out an empty order.");
                 return RedirectToAction("Index", model);
             }
 
@@ -201,6 +202,7 @@ namespace MVCData_Group5.Controllers
         {
             if (ShoppingCart.AmountItems == 0)
             {
+                Messages.NewInfo("You can't check out an empty order.");
                 return RedirectToAction("Index");
             }
 
@@ -247,6 +249,7 @@ namespace MVCData_Group5.Controllers
 
         private bool CheckOut(Customer customer)
         {
+            // Get info about movies in the shopping cart
             var movieIds = ShoppingCart.Keys.Where(k => ShoppingCart[k] > 0).ToArray();
             IQueryable<Movie> query = db.Movies.Where(m => movieIds.Contains(m.Id));
 
@@ -270,6 +273,7 @@ namespace MVCData_Group5.Controllers
             // Ensure that a movie price has not changed between displaying total to customer and actual checkout
             if (total != ShoppingCartTotal)
             {
+                Messages.NewWarning("One or more movies has changed price, please confirm the new total and then Check Out again.");
                 return false;
             }
 
@@ -277,7 +281,7 @@ namespace MVCData_Group5.Controllers
             db.SaveChanges();
 
             ShoppingCart.Clear();
-            UpdateShoppingCartTotal();
+            UpdateShoppingCartTotal(movies.Select(kvp => kvp.Value));
 
             return true;
         }

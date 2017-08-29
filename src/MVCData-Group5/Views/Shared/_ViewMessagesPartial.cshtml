@@ -1,0 +1,9 @@
+﻿@model IEnumerable<MVCData_Group5.Utilities.Message>
+
+
+@foreach (var item in Model) {
+    <div class="alert alert-@item.Type.ToString().ToLower() alert-dismissable" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        @item.Text
+    </div>
+}
