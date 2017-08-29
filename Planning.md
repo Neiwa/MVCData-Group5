@@ -11,3 +11,8 @@ Planning
 - [x] Order Complete
 - [x] List Orders
 - [x] __Partial__: View Order
+
+
+### Extra:
+- [ ] Shopping Cart as Cookie
+- [x] Messaging container between views
