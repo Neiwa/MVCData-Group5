@@ -64,7 +64,12 @@ namespace MVCData_Group5.Controllers
         [ChildActionOnly]
         public ActionResult MostExpensiveOrder()
         {
-            var order = db.Orders.OrderByDescending(o => o.OrderRows.Sum(r => r.Price)).First();
+            var order = db.Orders.OrderByDescending(o => o.OrderRows.Sum(r => r.Price)).FirstOrDefault();
+            if(order == null)
+            {
+                return PartialView("_SingleOrderSummaryPartial", new OrderSummaryViewModel());
+            }
+
             var model = new OrderSummaryViewModel
             {
                 OrderDate = order.OrderDate,
