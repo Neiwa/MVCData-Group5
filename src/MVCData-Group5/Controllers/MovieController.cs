@@ -43,7 +43,7 @@ namespace MVCData_Group5.Controllers
             }
             ViewBag.Pages = (query.Count() + length - 1) / length;
 
-            var model = query.OrderBy(m => m.Id).Skip(length * page).Take(length).Select(m => new DisplayMovieViewModel
+            var model = query.OrderBy(m => m.Title.ToLower()).Skip(length * page).Take(length).Select(m => new DisplayMovieViewModel
             {
                 Id = m.Id,
                 Title = m.Title,

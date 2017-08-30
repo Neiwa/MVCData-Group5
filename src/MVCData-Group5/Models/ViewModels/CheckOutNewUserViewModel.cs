@@ -11,7 +11,7 @@ namespace MVCData_Group5.Models.ViewModels
         public string EmailAddress { get; set; }
 
         [Required]
-        [Display(Name = "Use the same billing address as delivery addess")]
+        [Display(Name = "Use same Billing Address as Delivery Addess")]
         public bool SameBillingAsDelivery { get; set; }
 
         [Required]

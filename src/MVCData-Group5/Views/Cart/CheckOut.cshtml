@@ -1,29 +1,31 @@
 ﻿@model MVCData_Group5.Models.ViewModels.CheckOutViewModel
 
-<div class="col-md-5">
-    @if (Request.IsAuthenticated)
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("CheckOutLoggedIn", "Cart", FormMethod.Post, new { @class = "form-inline" }))
     {
-        using (Html.BeginForm("CheckOutLoggedIn", "Cart", FormMethod.Post, new { @class = "form-inline" }))
-        {
-            @Html.AntiForgeryToken()
-            <button type="submit" class="btn btn-info">Check Out</button>
-        }
+        @Html.AntiForgeryToken()
+        <button type="submit" class="btn btn-info">Check Out</button>
     }
-    else
+}
+else
+{
+    <h3>Check out as existing customer:</h3>
+    using (Html.BeginForm("CheckOut", "Cart", FormMethod.Post, new { @class = "form-inline" }))
     {
-        <h3>Check out as existing customer:</h3>
-        using (Html.BeginForm("CheckOut", "Cart", FormMethod.Post, new { @class = "form-inline" }))
-        {
-            @Html.AntiForgeryToken()
-            <div class="input-group">
-                <span class="input-group-addon">@@</span>
-                @Html.EditorFor(model => model.EmailAddress, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(model => model.EmailAddress) } })
-                <span class="input-group-btn">
-                    <button type="submit" class="btn btn-info">Check out</button>
-                </span>
+        @Html.AntiForgeryToken()
+        <div class="row">
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">@@</span>
+                    @Html.EditorFor(model => model.EmailAddress, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(model => model.EmailAddress) } })
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-info">Check out</button>
+                    </span>
+                </div>
             </div>
-        }
-        <br />
-        @Html.ActionLink("Check out as new customer", "CheckOutNewCustomer", null, new { @class = "btn btn-info" })
+        </div>
     }
-</div>
+    <br />
+    @Html.ActionLink("Check out as new customer", "CheckOutNewCustomer", null, new { @class = "btn btn-info" })
+}
