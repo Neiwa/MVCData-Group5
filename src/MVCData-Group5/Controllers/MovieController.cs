@@ -66,7 +66,7 @@ namespace MVCData_Group5.Controllers
         {
             ViewBag.ReturnUrl = Request.Url.PathAndQuery;
 
-            return PartialView("_movieRowPartial", model);
+            return PartialView("_MovieTilePartial", model);
         }
 
         [HttpGet]
@@ -114,7 +114,7 @@ namespace MVCData_Group5.Controllers
                 ImageUrl = m.ImageUrl
             });
 
-            return PartialView("MultipleMovies", model.ToList());
+            return PartialView("_MultipleMoviesPartial", model.ToList());
         }
 
         public ActionResult NewestMovies(int count = 5)
@@ -131,7 +131,7 @@ namespace MVCData_Group5.Controllers
                 ImageUrl = m.ImageUrl
             });
 
-            return PartialView("MultipleMovies", model.ToList());
+            return PartialView("_MultipleMoviesPartial", model.ToList());
         }
 
         public ActionResult OldestMovies(int count = 5)
@@ -148,7 +148,7 @@ namespace MVCData_Group5.Controllers
                 ImageUrl = m.ImageUrl
             });
 
-            return PartialView("MultipleMovies", model.ToList());
+            return PartialView("_MultipleMoviesPartial", model.ToList());
         }
 
         public ActionResult CheapestMovies(int count = 5)
@@ -165,7 +165,7 @@ namespace MVCData_Group5.Controllers
                 ImageUrl = m.ImageUrl
             });
 
-            return PartialView("MultipleMovies", model.ToList());
+            return PartialView("_MultipleMoviesPartial", model.ToList());
         }
     }
 }

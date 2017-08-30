@@ -261,6 +261,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Views\Cart\CheckOutComplete.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -293,21 +294,20 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Movie\Add.cshtml" />
-    <Content Include="Views\Movie\_movieRowPartial.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
-    <Content Include="Views\Cart\CheckOut.cshtml" />
-    <Content Include="Views\Cart\CheckOutComplete.cshtml" />
     <Content Include="Views\Cart\CheckOutNewCustomer.cshtml" />
     <Content Include="Views\Customer\Orders.cshtml" />
     <Content Include="Views\Customer\_SingleOrderDetailsPartial.cshtml" />
-    <Content Include="Views\Movie\MultipleMovies.cshtml" />
     <Content Include="Views\Customer\Index.cshtml" />
-    <Content Include="Views\Cart\_NavBarCartDisplay.cshtml" />
     <Content Include="Views\Movie\Index.cshtml" />
     <Content Include="Views\Movie\List.cshtml" />
-    <Content Include="Views\Cart\CheckOutOrderDetails.cshtml" />
     <Content Include="Views\Customer\_SingleOrderSummaryPartial.cshtml" />
     <Content Include="Views\Shared\_ViewMessagesPartial.cshtml" />
+    <Content Include="Views\Cart\_CheckOutButtonsPartial.cshtml" />
+    <Content Include="Views\Cart\_CheckOutOrderDetailsPartial.cshtml" />
+    <Content Include="Views\Cart\_NavBarCartDisplayPartial.cshtml" />
+    <Content Include="Views\Movie\_MovieTilePartial.cshtml" />
+    <Content Include="Views\Movie\_MultipleMoviesPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

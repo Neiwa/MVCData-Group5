@@ -64,7 +64,7 @@
     @*@Html.ActionLink("Check out", "CheckOut", null, new { @class = "btn btn-primary" })*@
 </div>
 
-@Html.Action("CheckOut")
+@Html.Action("CheckOutButtons")
 
 @using (Html.BeginForm("EmptyCart", "Cart", FormMethod.Post, new { id = "emptyCart" }))
 { }

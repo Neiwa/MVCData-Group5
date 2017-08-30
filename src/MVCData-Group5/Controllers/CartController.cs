@@ -100,7 +100,7 @@ namespace MVCData_Group5.Controllers
             ViewBag.AmountItems = ShoppingCart.AmountItems;
             ViewBag.OrderTotal = ShoppingCartTotal;
 
-            return PartialView("_NavBarCartDisplay");
+            return PartialView("_NavBarCartDisplayPartial");
         }
 
         [HttpPost]
@@ -182,9 +182,9 @@ namespace MVCData_Group5.Controllers
         }
 
         [ChildActionOnly]
-        public ActionResult CheckOut(CheckOutViewModel model)
+        public ActionResult CheckOutButtons(CheckOutViewModel model)
         {
-            return PartialView(model);
+            return PartialView("_CheckOutButtonsPartial", model);
         }
 
         [HttpPost]
@@ -225,7 +225,7 @@ namespace MVCData_Group5.Controllers
                 OrderTotal = UpdateShoppingCartTotal()
             };
 
-            return PartialView(model);
+            return PartialView("_CheckOutOrderDetailsPartial", model);
         }
 
         public ActionResult CheckOutNewCustomer()
