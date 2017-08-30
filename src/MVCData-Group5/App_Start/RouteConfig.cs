@@ -26,6 +26,11 @@ namespace MVCData_Group5
             );
 
             routes.MapRoute(
+                name: "Orders",
+                url: "Customer/{email}/Orders",
+                defaults: new { controller = "Customer", action = "Orders" });
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Movie", action = "Index", id = UrlParameter.Optional }

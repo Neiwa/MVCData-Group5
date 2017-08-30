@@ -75,6 +75,11 @@ namespace MVCData_Group5.Controllers
                 ShoppingCart.Add(movieId);
                 ShoppingCartTotal += movie.Price;
             }
+            else
+            {
+                Messages.NewDanger("Failed to add movie to shopping cart!");
+            }
+
             if (Url.IsLocalUrl(returnUrl))
             {
                 return Redirect(returnUrl);
@@ -198,7 +203,7 @@ namespace MVCData_Group5.Controllers
             if (Request.IsAuthenticated)
             {
                 ApplicationUser user = GetLoggedInUser();
-                if(user.Customer != null)
+                if (user.Customer != null)
                 {
                     return RedirectToAction("Index");
                 }
