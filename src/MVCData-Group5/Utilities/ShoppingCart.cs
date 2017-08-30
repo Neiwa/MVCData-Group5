@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace MVCData_Group5.Utilities
 {
@@ -15,7 +13,7 @@ namespace MVCData_Group5.Utilities
             this[id] = ++value;
         }
 
-        public new void Remove(int id)
+        public void RemoveOne(int id)
         {
             int value;
             TryGetValue(id, out value);
@@ -43,6 +41,28 @@ namespace MVCData_Group5.Utilities
             {
                 return this.Sum(kvp => kvp.Value);
             }
+        }
+
+        public string Serialize()
+        {
+            return this.Aggregate("SC1-", (s, kvp) => s + kvp.Key + "+" + kvp.Value + "-");
+        }
+
+        public static ShoppingCart Deserialize(string data)
+        {
+            if(data.Substring(0,3) != "SC1")
+            {
+                throw new FormatException("Data is not of a supported format.");
+            }
+            data = data.Substring(3);
+            var cart = new ShoppingCart();
+
+            foreach (var item in data.Split(new[] { '-' }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                string[] line = item.Split('+');
+                cart.Add(Convert.ToInt32(line[0]), Convert.ToInt32(line[1]));
+            }
+            return cart;
         }
     }
 }

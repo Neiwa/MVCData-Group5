@@ -14,5 +14,5 @@ Planning
 
 
 ### Extra:
-- [ ] Shopping Cart as Cookie
+- [x] Shopping Cart as Cookie
 - [x] Messaging container between views

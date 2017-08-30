@@ -10,21 +10,53 @@ using System.Web.Mvc;
 
 namespace MVCData_Group5.Controllers
 {
+    [ShoppingCartAsSessionActionFilter]
     public class CartController : MovieDbController
     {
-        protected ShoppingCart ShoppingCart
+        class ShoppingCartAsCookieActionFilter : ActionFilterAttribute
         {
-            get
+            public override void OnActionExecuting(ActionExecutingContext filterContext)
             {
-                ShoppingCart _cart = Session[DataKeys.ShoppingCart] as ShoppingCart;
-                if (_cart == null)
+                var cartCookie = filterContext.HttpContext.Request.Cookies[DataKeys.ShoppingCart];
+                if (cartCookie == null)
                 {
-                    _cart = new ShoppingCart();
-                    Session[DataKeys.ShoppingCart] = _cart;
+                    ((CartController)filterContext.Controller).ShoppingCart = new ShoppingCart();
                 }
-                return _cart;
+                else
+                {
+                    try
+                    {
+                        ((CartController)filterContext.Controller).ShoppingCart = ShoppingCart.Deserialize(cartCookie.Value);
+                    }
+                    catch
+                    {
+                        ((CartController)filterContext.Controller).ShoppingCart = new ShoppingCart();
+                    }
+                }
+            }
+
+            public override void OnActionExecuted(ActionExecutedContext filterContext)
+            {
+                var cookie = new HttpCookie(DataKeys.ShoppingCart, ((CartController)filterContext.Controller).ShoppingCart.Serialize());
+                cookie.Expires = DateTime.Now.AddDays(7);
+                filterContext.HttpContext.Response.Cookies.Add(cookie);
             }
         }
+        class ShoppingCartAsSessionActionFilter : ActionFilterAttribute
+        {
+            public override void OnActionExecuting(ActionExecutingContext filterContext)
+            {
+                var cart = ((Controller)filterContext.Controller).Session[DataKeys.ShoppingCart] as ShoppingCart;
+                if(cart == null)
+                {
+                    cart = new ShoppingCart();
+                    ((Controller)filterContext.Controller).Session[DataKeys.ShoppingCart] = cart;
+                }
+                ((CartController)filterContext.Controller).ShoppingCart = cart;
+            }
+        }
+
+        public ShoppingCart ShoppingCart { get; set; }
 
         protected double ShoppingCartTotal
         {
@@ -60,6 +92,11 @@ namespace MVCData_Group5.Controllers
         [ChildActionOnly]
         public ActionResult NavBarCartDisplay()
         {
+            if(ShoppingCart.AmountItems > 0 && ShoppingCartTotal == 0)
+            {
+                UpdateShoppingCartTotal();
+            }
+
             ViewBag.AmountItems = ShoppingCart.AmountItems;
             ViewBag.OrderTotal = ShoppingCartTotal;
 
@@ -309,6 +346,19 @@ namespace MVCData_Group5.Controllers
             IQueryable<Movie> query = db.Movies.Where(m => movieIds.Contains(m.Id));
 
             var movies = query.ToDictionary(m => m.Id);
+
+            IEnumerable<int> diff = movieIds.Except(movies.Keys);
+            // Not all movies where found in the database
+            if (diff.Count() > 0)
+            {
+                foreach (var key in diff)
+                {
+                    ShoppingCart.Remove(key);
+                }
+                Messages.NewDanger("One or movies in your shopping cart is no longer available, please review your order and then Check Out again.");
+
+                return false;
+            }
 
             double total = 0D;
 
